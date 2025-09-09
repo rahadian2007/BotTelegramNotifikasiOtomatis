@@ -2,7 +2,7 @@ addEventListener("fetch", event => {
   event.respondWith(handleRequest(event.request));
 })
 
-const TELEGRAM_TOKEN = 'MASUKKAN_TOKEN_DISINI';
+const TELEGRAM_TOKEN = '8429460116:AAGO1ES_3bVPklZY5QY7-QeT19bcqpnbFec';
 const CHAT_ID = 'MASUKKAN_CHAT_ID_DISINI';
 
 async function handleRequest(request) {
