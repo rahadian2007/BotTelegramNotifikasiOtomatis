@@ -3,7 +3,7 @@ addEventListener("fetch", event => {
 })
 
 const TELEGRAM_TOKEN = '8429460116:AAGO1ES_3bVPklZY5QY7-QeT19bcqpnbFec';
-const CHAT_ID = 'MASUKKAN_CHAT_ID_DISINI';
+const CHAT_ID = '-4965123376';
 
 async function handleRequest(request) {
   if (request.method === 'POST') {
