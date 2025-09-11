@@ -1,21 +1,18 @@
-// 📂 Lokasi file: ./config/cron-tasks.js
-// File ini dipakai Strapi untuk mendefinisikan cron job (tugas terjadwal otomatis)
-
 const axios = require("axios");
 
+const BOT_TOKEN = "123456789:ABC-your-bot-token"; 
+const CHAT_ID = "987654321";
+
 module.exports = {
-  // ⏰ Cron job pertama: jalan setiap hari jam 09:00 pagi
-  "0 9 * * *": async () => {
-    await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      chat_id: process.env.TELEGRAM_CHAT_ID,
+  "0 9 * * *": async () => { // jam 09:00
+    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      chat_id: CHAT_ID,
       text: "Selamat pagi! ☀️",
     });
   },
-
-  // ⏰ Cron job kedua: jalan setiap hari jam 17:00 sore
-  "0 17 * * *": async () => {
-    await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      chat_id: process.env.TELEGRAM_CHAT_ID,
+  "0 17 * * *": async () => { // jam 17:00
+    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      chat_id: CHAT_ID,
       text: "Selamat sore! 🌆",
     });
   },
