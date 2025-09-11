@@ -1,3 +1,0 @@
-type = "javascript"
-name = "nama-worker"
-main = "index.js"
