@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Jadwal Pesan Telegram</title>
+</head>
+<body>
+  <h2>Status:</h2>
+  <p id="status">⏳ Menunggu waktu pengiriman pesan...</p>
+
+  <script>
+    const token = "8429460116:AAGO1ES_3bVPklZY5QY7-QeT19bcqpnbFec";
+    const chatId = "-4965123376";
+
+    // Fungsi kirim pesan ke Telegram
+    function kirimPesanTelegram(teks) {
+      const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: teks
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          console.log("✅ Terkirim:", teks);
+          document.getElementById("status").innerText = "✅ Pesan terkirim: " + teks;
+        } else {
+          console.error("❌ Gagal:", data.description);
+          document.getElementById("status").innerText = "❌ Gagal kirim: " + data.description;
+        }
+      })
+      .catch(err => {
+        console.error("❌ Error:", err);
+        document.getElementById("status").innerText = "❌ Error kirim pesan.";
+      });
+    }
+
+    // Jadwal pesan: isi dengan [hari, jam, menit, pesan]
+    const jadwalPesan = [
+      { hari: 6, jam: 21, menit: 36, pesan:  " Test" },
+      // { hari: 6, jam: 19, menit: 16, pesan: " Test" },
+      // { hari: 6, jam: 19, menit: 17, pesan:  " Test" }
+    ];
+
+    // *** Keterangan Hari ***
+    // Senin , hari: 1
+    // Selasa , hari: 2
+    // Rabu, hari: 3
+    // Kamis, hari: 4
+    // Jumat , hari: 5
+    // Sabtu, hari: 6
+    // Minggu, hari: 7
+
+    // Menyimpan waktu yang sudah terkirim, agar tidak kirim dua kali
+    let terkirimHariIni = new Set();
+
+    function cekWaktu() {
+      const sekarang = new Date();
+      const hari = sekarang.getDay(); // 0 = Minggu, 1 = Senin, ..., 5 = Jumat
+      const jam = sekarang.getHours();
+      const menit = sekarang.getMinutes();
+
+      jadwalPesan.forEach(item => {
+        const idUnik = `${item.hari}-${item.jam}-${item.menit}`;
+        if (
+          hari === item.hari &&
+          jam === item.jam &&
+          menit === item.menit &&
+          !terkirimHariIni.has(idUnik)
+        ) {
+          kirimPesanTelegram(item.pesan);
+          terkirimHariIni.add(idUnik); // Supaya tidak dikirim ulang dalam menit yang sama
+        }
+      });
+
+      // Reset daftar terkirim saat tengah malam
+      if (jam === 0 && menit === 0) {
+        terkirimHariIni.clear();
+      }
+    }
+
+    // Jalankan cek setiap 30 detik
+    setInterval(cekWaktu, 30000);
+  </script>
+</body>
+</html>
