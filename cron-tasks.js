@@ -1,4 +1,4 @@
-// Lokasi: ./config/cron-tasks.js
+// Lokasi: ./config/cron-tasks.js di STRAPI
 
 const axios = require("axios");
 
