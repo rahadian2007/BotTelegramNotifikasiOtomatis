@@ -3,8 +3,8 @@
 const axios = require("axios");
 
 // Ganti dengan token dan chat_id Telegram kamu
-const BOT_TOKEN = "123456789:ABC-your-bot-token";
-const CHAT_ID = "987654321";
+const BOT_TOKEN = "8429460116:AAGO1ES_3bVPklZY5QY7-QeT19bcqpnbFec";
+const CHAT_ID = "-4965123376";
 
 // Daftar jadwal notifikasi
 const schedules = [
